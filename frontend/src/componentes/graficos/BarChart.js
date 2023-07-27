@@ -23,7 +23,7 @@ export default function BarChart({ entrada, saida, caixa }) {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "5%",
+          columnWidth: "25%",
           endingShape: "rounded",
         },
       },
