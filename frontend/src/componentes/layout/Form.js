@@ -10,9 +10,7 @@ import style from "./Form.module.css";
 
 export default function Form({ GetDB }) {
   const [isSubmit, setIsSubmit] = useState(false);
-  const [typeMovimentação, setTypeMovimentação] = useState();
-  const [typeQuantidade, setTypeQuantidade] = useState("");
-  const [AtivarOption, setAtivarOption] = useState(false);
+
   const ref = useRef();
   const [currentDate, setCurrentDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -30,7 +28,6 @@ export default function Form({ GetDB }) {
       !dadosForm.dataNew.value ||
       !dadosForm.movimentacao.value ||
       !dadosForm.descricao.value ||
-      !dadosForm.quantidade.value ||
       !dadosForm.valor.value
     ) {
       setIsSubmit(false); // Reabilita o botão após o envio do formulário
@@ -43,7 +40,7 @@ export default function Form({ GetDB }) {
           dataNew: ` ${dataInvertida}`,
           movimentacao: dadosForm.movimentacao.value,
           descricao: dadosForm.descricao.value,
-          quantidade: dadosForm.quantidade.value,
+          especifique: dadosForm.especifique.value,
           valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
@@ -51,7 +48,7 @@ export default function Form({ GetDB }) {
     }
     dadosForm.dataNew.value = "";
     dadosForm.movimentacao.value = "";
-    dadosForm.quantidade.value = "";
+    dadosForm.especifique.value = "";
     dadosForm.descricao.value = "";
     dadosForm.valor.value = "";
 
@@ -69,27 +66,12 @@ export default function Form({ GetDB }) {
     const dadosForm = ref.current;
     const inputValue = e.target.value;
 
-    setTypeMovimentação(inputValue);
-
-    dadosForm.movimentacao.value === "Saida"
-      ? setAtivarOption(true)
-      : setAtivarOption(false);
-
-    if (
-      dadosForm.descricao.value === "funcionarios" ||
-      dadosForm.descricao.value === "gastosEmpresa"
-    ) {
-      setTypeQuantidade("especifique");
-    } else {
-      setTypeQuantidade("");
-    }
-
     if (inputValue === "Caixa") {
-      dadosForm.quantidade.value = 0;
-      dadosForm.quantidade.disabled = true; // Desabilitar o campo de entrada
+      dadosForm.especifique.value = 0;
+      dadosForm.especifique.disabled = true; // Desabilitar o campo de entrada
     } else {
-      dadosForm.quantidade.value = "";
-      dadosForm.quantidade.disabled = false;
+      dadosForm.especifique.value = "";
+      dadosForm.especifique.disabled = false;
     }
   }
 
@@ -118,53 +100,23 @@ export default function Form({ GetDB }) {
         </select>
       </div>
 
-      {typeMovimentação === "Caixa" ? (
-        <Input
-          text="DESCRIÇÃO"
-          placeholder="Digite a Descrição aqui"
-          type="text"
-          id="descricao"
-          name="descricao"
-          className={style.input}
-        />
-      ) : (
-        <div className={style.selectInput}>
-          <label>DESCRIÇÃO</label>
-          <select id="descricao" onChange={handleValida}>
-            <option value="">Selecione</option>
-            <option value="ferro">Ferro</option>
-            <option value="plastico">Plastico</option>
-            <option value="papelao">Papelao</option>
-            {AtivarOption && (
-              <>
-                <option value="funcionarios">Funcionarios</option>
-                <option value="gastosEmpresa">Gastos da empresa</option>
-              </>
-            )}
-          </select>
-        </div>
-      )}
-      {typeQuantidade === "especifique" ? (
-        <Input
-          text="ESPECIFIQUE"
-          placeholder="Digite o motivo "
-          type="text"
-          id="quantidade"
-          name="quantidade"
-          className={style.input}
-        />
-      ) : (
-        <Input
-          text="QUANTIDADE(KG)"
-          placeholder="Digite o peso KG"
-          type="text"
-          id="quantidade"
-          name="quantidade"
-          min="0"
-          onChange={handleNumber}
-          className={style.input}
-        />
-      )}
+      <Input
+        text="DESCRIÇÃO"
+        placeholder="Digite a Descrição aqui"
+        type="text"
+        id="descricao"
+        name="descricao"
+        className={style.input}
+      />
+
+      <Input
+        text="ESPECIFIQUE"
+        placeholder="Digite o motivo "
+        type="text"
+        id="especifique"
+        name="especifique"
+        className={style.input}
+      />
 
       <Input
         text="VALOR(R$)"

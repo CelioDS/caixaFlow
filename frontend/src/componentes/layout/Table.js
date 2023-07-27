@@ -3,7 +3,6 @@ import Mobile from "../function/CheckMobile";
 import { useCallback, useState, useEffect } from "react";
 import { FaDownload } from "react-icons/fa"; // Importe o ícone de download da biblioteca
 import Loading from "./Loading";
-import Estoque from "./Estoque";
 import Header from "./Header";
 
 export default function Table({ arrayDB, currentPage }) {
@@ -15,11 +14,7 @@ export default function Table({ arrayDB, currentPage }) {
   const [caixa, setCaixa] = useState(0);
   const [entrada, setEntrada] = useState(0);
   const [saida, setSaida] = useState(0);
-  const [papelao, setPapelao] = useState(0);
-  const [ferro, setFerro] = useState(0);
-  const [plastico, setPlastico] = useState(0);
-  const [funcionarios, setFuncionarios] = useState(0);
-  const [gastosEmpresa, setGastosEmpresa] = useState(0);
+
   useEffect(() => {
     // Filtrar os dados do mês selecionado
     const filteredData = arrayDB.filter(({ dataNew }) => {
@@ -44,50 +39,6 @@ export default function Table({ arrayDB, currentPage }) {
       return data.movimentacao === "Saida" ? total + data.valor : total;
     }, 0);
     setSaida(saidaValue);
-
-    const papelaoValue = filteredData.reduce((total, data) => {
-      if (data.descricao === "papelao") {
-        return data.movimentacao === "Entrada"
-          ? total + parseInt(data.quantidade)
-          : total - parseInt(data.quantidade);
-      }
-      return total;
-    }, 0);
-    setPapelao(papelaoValue);
-
-    const ferroValue = filteredData.reduce((total, data) => {
-      if (data.descricao === "ferro") {
-        return data.movimentacao === "Entrada"
-          ? total + parseInt(data.quantidade)
-          : total - parseInt(data.quantidade);
-      }
-      return total;
-    }, 0);
-    setFerro(ferroValue);
-
-    const plasticoValue = filteredData.reduce((total, data) => {
-      if (data.descricao === "plastico") {
-        return data.movimentacao === "Entrada"
-          ? total + parseInt(data.quantidade)
-          : total - parseInt(data.quantidade);
-      }
-      return total;
-    }, 0);
-    setPlastico(plasticoValue);
-
-    const custoFuncionario = filteredData.reduce((total, data) => {
-      return data.descricao === "funcionarios" && data.movimentacao === "Saida"
-        ? total + data.valor
-        : total;
-    }, 0);
-    setFuncionarios(custoFuncionario);
-
-    const gastosEmpresavalue = filteredData.reduce((total, data) => {
-      return data.descricao === "gastosEmpresa" && data.movimentacao === "Saida"
-        ? total + data.valor
-        : total;
-    }, 0);
-    setGastosEmpresa(gastosEmpresavalue);
   }, [arrayDB, searchMonth]);
 
   function handleMonthChange(e) {
@@ -118,13 +69,11 @@ export default function Table({ arrayDB, currentPage }) {
     const fileName = `${selectedMonth} relatorio.csv`;
     // Cabeçalho do CSV
     const header = [
-      "ID",
       "Dia",
       "Movimentacao",
       "Descricao",
-      "Quantidade(KG)",
+      "especifique(KG)",
       "Valor",
-      "Preco por KG",
     ];
 
     // Dados do arrayDB filtrados pelo mês selecionado
@@ -139,15 +88,13 @@ export default function Table({ arrayDB, currentPage }) {
     const csvRows = [header.join(";")];
 
     filteredData.forEach(
-      ({ id, dataNew, descricao, quantidade, movimentacao, valor }) => {
+      ({ dataNew, descricao, especifique, movimentacao, valor }) => {
         const formattedRow = [
-          id + 1,
           dataNew,
           movimentacao,
           descricao,
-          quantidade,
+          especifique,
           valor,
-          movimentacao !== "Caixa" ? (valor / quantidade).toFixed(2) : "-",
         ];
 
         // Sanitize the fields to handle semicolons and other special characters
@@ -179,14 +126,7 @@ export default function Table({ arrayDB, currentPage }) {
       {isReportsPage && (
         <section className={style.overview}>
           <div className={style.plate}>
-            <Estoque papelao={papelao} ferro={ferro} plastico={plastico} />
-            <Header
-              entrada={entrada}
-              saida={saida}
-              caixa={caixa}
-              funcionarios={funcionarios}
-              gastosEmpresa={gastosEmpresa}
-            />
+            <Header entrada={entrada} saida={saida} caixa={caixa} />
           </div>
 
           <div className={style.filter}>
@@ -219,9 +159,8 @@ export default function Table({ arrayDB, currentPage }) {
             {!isMobile && <th>data </th>}
             <th>movimentação</th>
             <th>descrição</th>
-            <th>quantidade(KG)</th>
+            <th>Especifique</th>
             <th>valor</th>
-            {!isMobile && <th>preço por KG</th>}
           </tr>
         </thead>
         <tbody>
@@ -235,9 +174,7 @@ export default function Table({ arrayDB, currentPage }) {
           )}
           {arrayDB.length === 0 ? (
             <tr>
-              <td colSpan={7}>
-                <Loading></Loading>
-              </td>
+              <td colSpan={7}></td>
             </tr>
           ) : (
             arrayDB
@@ -253,7 +190,7 @@ export default function Table({ arrayDB, currentPage }) {
                   id,
                   dataNew,
                   descricao,
-                  quantidade,
+                  especifique,
                   movimentacao,
                   valor,
                 }) => (
@@ -273,7 +210,7 @@ export default function Table({ arrayDB, currentPage }) {
                       {movimentacao}
                     </td>
                     <td>{descricao}</td>
-                    <td>{quantidade}</td>
+                    <td>{especifique}</td>
                     <td
                       style={
                         movimentacao === "Entrada"
@@ -285,15 +222,6 @@ export default function Table({ arrayDB, currentPage }) {
                     >
                       {valor}
                     </td>
-                    {!isMobile && (
-                      <td>
-                        {movimentacao === "Caixa" ||
-                        descricao === "funcionarios" ||
-                        descricao === "gastosEmpresa"
-                          ? "-"
-                          : parseFloat(valor / quantidade).toFixed(2)}
-                      </td>
-                    )}
                   </tr>
                 )
               )

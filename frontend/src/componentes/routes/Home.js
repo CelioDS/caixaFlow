@@ -102,7 +102,7 @@ export default function Home() {
 
   return (
     <main className={style.main}>
-      <h1>Fluxo de caixa</h1>
+      <h1>Controle financeiro do mês atual</h1>
       <div className={style.graficos}>
         <BarChart
           entrada={entrada}

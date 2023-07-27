@@ -4,9 +4,11 @@
   display: flex;
   position: relative;
   flex-direction: column;
+  margin-top: 30px;
 }
 .main > h1 {
   color: var(--GreyDark);
+  margin: 30px;
 }
 .graficos {
   display: flex;

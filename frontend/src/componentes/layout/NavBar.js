@@ -83,11 +83,7 @@ export default function NavBar() {
     <div className={styles.div}>
       <main>
         <nav>
-          <LinkButton
-            to="/"
-            text="FLUXO DE CAIXA"
-            className={styles.logo}
-          />
+          <LinkButton to="/" text="CAIXA FLOW" className={styles.logo} />
 
           {/*ativa o MenuMobile*/}
           {isMobile && (
