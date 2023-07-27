@@ -216,7 +216,6 @@ export default function Table({ arrayDB, currentPage }) {
       <table className={style.table}>
         <thead>
           <tr>
-            {!isMobile && <th>id </th>}
             {!isMobile && <th>data </th>}
             <th>movimentação</th>
             <th>descrição</th>
@@ -261,19 +260,6 @@ export default function Table({ arrayDB, currentPage }) {
                   <tr key={id}>
                     {console.log()}
 
-                    {!isMobile && (
-                      <td
-                        style={
-                          movimentacao === "Entrada"
-                            ? { color: "#008000" }
-                            : movimentacao === "Saida"
-                            ? { color: "#800303fb" }
-                            : { color: "#0099ff" } // Terceiro valor para outra movimentação
-                        }
-                      >
-                        {id + 1}
-                      </td>
-                    )}
                     {!isMobile && <td>{dataNew}</td>}
                     <td
                       style={

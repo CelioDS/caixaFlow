@@ -73,21 +73,30 @@ function App() {
       {permission && <NavBar />}
       {permission && <Outlet />}
       {!permission && (
-        <>
-          <span>
-            usuario:<strong>celio</strong>
-          </span>
-          <span>
-            senha:<strong>*celio123*</strong>
-          </span>
-          <button
-            className={"btnCopy"}
-            onClick={() => handleCopy("*celio123*", Event)}
-          >
-            <p className={copy}>{copy}</p>
-            <BsClipboardCheck />
-          </button>
-        </>
+        <div className={"credencial"}>
+          <div>
+            <span>
+              usuario: <strong>celio</strong>
+            </span>
+            <button className={"btnCopy"} onClick={() => handleCopy("celio")}>
+              <p className={"copy"}>{copy}</p>
+              <BsClipboardCheck />
+            </button>
+          </div>
+
+          <div>
+            <span>
+              senha: <strong>*celio123*</strong>
+            </span>
+            <button
+              className={"btnCopy"}
+              onClick={() => handleCopy("*celio123*")}
+            >
+              <p className={"copy"}>{copy}</p>
+              <BsClipboardCheck />
+            </button>
+          </div>
+        </div>
       )}
 
       {!permission && (
