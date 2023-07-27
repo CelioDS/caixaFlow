@@ -13,12 +13,13 @@ export const getDB = (_, res) => {
 
 export const setDB = (req, res) => {
   const query =
-    "INSERT INTO dados(`dataNew`,`movimentacao`,`descricao`,`valor`) VALUES(?)";
+    "INSERT INTO dados(`dataNew`,`movimentacao`,`descricao`,`quantidade`,`valor`) VALUES(?)";
 
   const values = [
     req.body.dataNew,
     req.body.movimentacao,
     req.body.descricao,
+    req.body.quantidade,
     req.body.valor,
   ];
 
@@ -31,11 +32,12 @@ export const setDB = (req, res) => {
 
 export const updateDB = (req, res) => {
   const query =
-    "UPDATE dados SET `dataNew` = ?, `movimentacao` = ?, `descricao` = ?, `valor` = ?,";
+    "UPDATE dados SET `dataNew` = ?, `movimentacao` = ?, `descricao` = ?, `quantidade` = ?, `valor` = ?,";
   const values = [
     req.body.dataNew,
     req.body.movimentacao,
     req.body.descricao,
+    req.body.quantidade,
     req.body.valor,
   ];
   db.query(query, [...values, req.params.id], (err) => {
