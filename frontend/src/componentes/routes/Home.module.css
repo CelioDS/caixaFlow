@@ -8,3 +8,9 @@
 .main > h1 {
   color: var(--GreyDark);
 }
+.graficos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-basis: 50%;
+}
