@@ -72,19 +72,24 @@ function App() {
     <div className="App" style={{ zoom: zoomPage }}>
       {permission && <NavBar />}
       {permission && <Outlet />}
-      <span>
-        usuario:<strong>celio</strong>
-      </span>
-      <span>
-        senha:<strong>*celio123*</strong>
-      </span>
-      <button
-        className={"btnCopy"}
-        onClick={() => handleCopy("*celio123*", Event)}
-      >
-        <p className={copy}>{copy}</p>
-        <BsClipboardCheck />
-      </button>
+      {!permission && (
+        <>
+          <span>
+            usuario:<strong>celio</strong>
+          </span>
+          <span>
+            senha:<strong>*celio123*</strong>
+          </span>
+          <button
+            className={"btnCopy"}
+            onClick={() => handleCopy("*celio123*", Event)}
+          >
+            <p className={copy}>{copy}</p>
+            <BsClipboardCheck />
+          </button>
+        </>
+      )}
+
       {!permission && (
         <form className={`login-form ${erro === true ? "erro" : ""}`}>
           <h2>Login</h2>
