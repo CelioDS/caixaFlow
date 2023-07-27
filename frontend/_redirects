@@ -1,0 +1,8 @@
+# Redirecionar todas as solicitações para o arquivo index.html
+/*    /index.html   200
+
+# Bloquear acesso a arquivos JavaScript
+/*.js    /404.html   404
+
+# Bloquear acesso a arquivos CSS
+/*.css    /404.html   404

@@ -1,0 +1,10 @@
+.main {
+  min-height: calc(100vh - 135px);
+  text-align: center;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+.main > h1 {
+  color: var(--GreyDark);
+}

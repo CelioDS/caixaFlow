@@ -1,0 +1,42 @@
+.father {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 100%;
+  height: auto !important;
+  margin: 0 auto;
+  gap: 10px;
+  margin: 10px auto;
+}
+.father > label {
+  color: #000000;
+  text-align: center;
+  font-weight: bolder;
+
+}
+.father > input {
+  color: #000000;
+  outline: none;
+  width: 100%;
+  height: 37px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.father > input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+.father > input::placeholder {
+  color: #9e9b9b;
+
+  padding: 8px 0;
+}
+
+.father > input[type="date"] {
+background: transparent;
+}

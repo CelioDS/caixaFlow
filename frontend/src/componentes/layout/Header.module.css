@@ -1,0 +1,109 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+.header section div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-self: center;
+  background-color: #fff;
+  filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.5));
+}
+.header section div > h1 {
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.header section:nth-child(1) {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.header section:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+.header section:nth-child(1) > div {
+  width: 100%;
+  margin: 10px;
+  gap: 10px;
+}
+.header section:nth-child(2) > div {
+  width: 100%;
+  margin: 10px;
+  gap: 10px;
+}
+
+.header section:nth-child(2) > div span h1 {
+  color: var(--corSaida);
+}
+
+.header section:nth-child(1) div:nth-child(1) > h1 svg {
+  color: var(--corEntrada);
+  background-color: var(--EntradaLight);
+}
+.header section:nth-child(1) div:nth-child(1) > span h1 {
+  color: var(--corEntrada);
+}
+.header section:nth-child(1) div:nth-child(2) > h1 svg {
+  color: var(--corSaida);
+  background-color: var(--SaidaLight);
+}
+.header section:nth-child(1) div:nth-child(2) > span h1 {
+  color: var(--corSaida);
+}
+.header section:nth-child(1) div:nth-child(3) > h1 svg {
+  color: var(--corCaixa);
+  background-color: var(--CaixaLight);
+}
+.header section:nth-child(1) div:nth-child(3) > span h1 {
+  color: var(--corCaixa);
+}
+.header section div {
+  position: relative;
+  align-items: center;
+  color: #7a7575;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--GreyCCC);
+}
+.header div:hover {
+  transform: scale(1.1);
+  z-index: 100;
+  transition: all 0.2s;
+}
+
+@media (max-width: 900px) {
+  .header section:nth-child(2) > div,
+  .header section:nth-child(1) > div {
+    max-width: 80%;
+
+    margin: 5px auto;
+  }
+  .header section:nth-child(2),
+  .header section:nth-child(1) {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,82 @@
+.form {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.form > div {
+  flex-basis: 25%; /* Largura de cada coluna (25% para 4 colunas) */
+  padding: 5px; /* Espaçamento entre as colunas */
+  min-width: 215px;
+}
+.selectInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px;
+  margin: 10px auto;
+}
+.form > input[type="date"] {
+  display: none;
+}
+.form > div select {
+  height: 37px;
+  display: flex;
+
+  text-align: center;
+}
+
+.form > .selectInput option[value=""] {
+  color: #ebebeb; /* Cor diferente para o primeiro option */
+  font-style: italic; /* Exemplo: Adicionar estilo itálico */
+  background-color: #ebebeb; /* Cor de fundo quando um item é selecionado */
+}
+
+/* Estilo para a borda do campo de seleção quando em foco */
+.form > div select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+/**/
+
+.form > div label {
+  padding-bottom: 5px;
+  color: var(--GreyDark);
+  text-align: center;
+  font-weight: bolder;
+}
+.form > div input,
+.form > div select {
+  border: 1px solid #c4c4c4 !important;
+  color: #3b3939;
+}
+
+/* O último item ocupa 100% da largura da linha para ficar embaixo dos três primeiros */
+.form > div:last-child {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+
+  justify-content: center; /* Centralizar o botão */
+}
+.form > div > button {
+  padding: 8px 16px;
+  background-color: var(--corCaixa);
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  height: 46px;
+  width: 100px;
+}
+.form > div > button:disabled {
+  opacity: 0.2;
+  background-color: var(--corEntrada);
+  cursor: progress;
+}
+.form > div > button:not(:disabled):hover {
+  opacity: 0.8;
+  outline: none;
+  border-color: #007bff;
+}

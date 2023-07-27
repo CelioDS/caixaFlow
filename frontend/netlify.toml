@@ -1,0 +1,30 @@
+[[redirects]]
+from ="/*"
+to = "/index.html"
+status = 200
+
+[[redirects]]
+  from = "/*.js"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/*.css"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "https://finan01ceiro.netlify.app//:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*.html"
+    [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate"
+
+[[headers]]
+  for = "/*.(js|css|woff|woff2|ttf|svg|ico)"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000"

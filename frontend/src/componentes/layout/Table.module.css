@@ -1,0 +1,77 @@
+section {
+  width: 98%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+section .plate {
+  background-color: transparent;
+}
+section .filter {
+  display: flex;
+  justify-content: space-around;
+  color: var(--GreyDark);
+}
+section .filter button {
+  padding: 2px 5px;
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid var(--GreyCCC);
+  transition: all 0.8s;
+}
+section .filter button:hover {
+  color: #007bff;
+  background-color: rgb(224, 223, 223);
+}
+section .filter button span {
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+section .filter > div select option {
+  color: var(--GreyDark);
+}
+
+section .filter > div select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+section table {
+  width: 98%;
+  margin: 0 auto;
+  overflow-y: scroll; /* Adiciona uma barra de rolagem horizontal quando necessário */
+  border-collapse: collapse; /* To remove spacing between table cells */
+  border-collapse: collapse; /* To remove spacing between table cells */
+  word-break: break-all;
+  text-overflow: ellipsis;
+  border: 1px solid #d1d1d1;
+}
+
+/* Style the table header */
+section table th {
+  background-color: #d1d1d1;
+  color: var(--GreyDark);
+  padding: 8px;
+  position: sticky; /* Deixa o cabeçalho fixo */
+  top: 0; /* Define a posição de fixação na parte superior da tabela */
+  z-index: 1; /* Aumenta a ordem de sobreposição para garantir que o cabeçalho fique na frente do conteúdo rolável */
+}
+
+/* Style the table cells (data) */
+section table td {
+  padding: 8px;
+  color: var(--GreyLight);
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+/* Apply hover effect on table rows */
+section table tbody tr:hover {
+  transform: scale(1.03);
+  z-index: 100;
+  filter: drop-shadow(3px 3px 3px #000000);
+  box-shadow: 0 0 5px #c4c4c4;
+  transition: all 0.2s;
+}

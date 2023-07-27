@@ -1,0 +1,13 @@
+.father {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+}
+.loader {
+  width: 50px;
+  color: #ccc !important;
+}

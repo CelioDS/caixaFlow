@@ -1,0 +1,23 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+:root {
+  --corSaida: #800303fb;
+  --corEntrada: #008000;
+  --corCaixa: #0099ff;
+  --GreyLight: #a2a6c4;
+  --GreyNormal: #a2a6c4;
+  --GreyDark: #727272;
+  --GreyCCC: #ccc;
+  --corShadow: #2c2b2b;
+  --SaidaLight: #ffc0cb;
+  --EntradaLight: #d9f0cf;
+  --CaixaLight: #87ceeb;
+}
+.main > h1 {
+  color: var(--GreyDark);
+}
