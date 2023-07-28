@@ -11,7 +11,7 @@ export default function Header({ entrada, saida, caixa }) {
             <BsArrowUp /> ENTRADA
           </h1>
           <span>
-            <h1>R$ {entrada}</h1>
+            <h1>R$ {parseFloat(entrada).toFixed(2)}</h1>
           </span>
         </div>
         <div>
@@ -19,7 +19,7 @@ export default function Header({ entrada, saida, caixa }) {
             <BsArrowDown /> SAÍDA
           </h1>
           <span>
-            <h1>R$ - {saida}</h1>
+            <h1>R$ - {parseFloat(saida).toFixed(2)}</h1>
           </span>
         </div>
         <div>
@@ -28,7 +28,7 @@ export default function Header({ entrada, saida, caixa }) {
             CAIXA
           </h1>
           <span>
-            <h1>R$ {caixa + entrada - saida}</h1>
+            <h1>R$ {parseFloat(entrada - saida).toFixed(2)}</h1>
           </span>
         </div>
       </section>

@@ -1,19 +1,22 @@
 import ApexChart from "react-apexcharts";
 
 export default function BarChart({ entrada, saida, caixa }) {
+  const formattedEntrada = parseFloat(entrada).toFixed(2);
+  const formattedSaida = parseFloat(saida).toFixed(2);
+  const formattedCaixa = parseFloat(caixa).toFixed(2);
   const state = {
     series: [
       {
         name: "Entrada",
-        data: [entrada],
+        data: [formattedEntrada],
       },
       {
         name: "Saída",
-        data: [saida],
+        data: [formattedSaida],
       },
       {
         name: "Caixa",
-        data: [caixa],
+        data: [formattedCaixa],
       },
     ],
     options: {

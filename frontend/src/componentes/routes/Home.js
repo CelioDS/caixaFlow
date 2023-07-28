@@ -14,8 +14,7 @@ export default function Home() {
   const [caixa, setCaixa] = useState([]);
   const [entrada, setEntrada] = useState([]);
   const [saida, setSaida] = useState([]);
-  const [funcionarios, setFuncionarios] = useState([]);
-  const [gastosEmpresa, setgastosEmpresa] = useState([]);
+
   const [arrayDB, setArrayDB] = useState([]);
 
   function filterByCurrentMonth(dataArray) {
@@ -78,52 +77,18 @@ export default function Home() {
         }
       }, 0)
     );
-
-    setgastosEmpresa(
-      arrayDB.reduce((acumulador, data) => {
-        if (
-          data.movimentacao === "Saida" &&
-          data.descricao === "gastosEmpresa"
-        ) {
-          return acumulador + data.valor;
-        } else {
-          return acumulador;
-        }
-      }, 0)
-    );
-
-    const custoFuncionario = arrayDB.reduce((total, data) => {
-      return data.descricao === "funcionarios" && data.movimentacao === "Saida"
-        ? total + data.valor
-        : total;
-    }, 0);
-    setFuncionarios(custoFuncionario);
   }, [arrayDB]);
 
   return (
     <main className={style.main}>
       <h1>Controle financeiro do mês atual</h1>
       <div className={style.graficos}>
-        <BarChart
-          entrada={entrada}
-          saida={saida}
-          caixa={caixa + entrada - saida}
-        />
+        <BarChart entrada={entrada} saida={saida} caixa={entrada - saida} />
 
-        <PieCharts
-          entrada={entrada}
-          saida={saida}
-          caixa={caixa + entrada - saida}
-        />
+        <PieCharts entrada={entrada} saida={saida} caixa={saida + caixa} />
       </div>
 
-      <Header
-        entrada={entrada}
-        saida={saida}
-        caixa={caixa}
-        funcionarios={funcionarios}
-        gastosEmpresa={gastosEmpresa}
-      />
+      <Header entrada={entrada} saida={saida} caixa={entrada - saida} />
       <Form GetDB={GetDB} />
       <Table arrayDB={arrayDB} />
     </main>

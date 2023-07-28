@@ -64,15 +64,9 @@ export default function Form({ GetDB }) {
   }
   function handleValida(e) {
     const dadosForm = ref.current;
-    const inputValue = e.target.value;
 
-    if (inputValue === "Caixa") {
-      dadosForm.especifique.value = 0;
-      dadosForm.especifique.disabled = true; // Desabilitar o campo de entrada
-    } else {
-      dadosForm.especifique.value = "";
-      dadosForm.especifique.disabled = false;
-    }
+    dadosForm.especifique.value = "-";
+    dadosForm.especifique.disabled = true; // Desabilitar o campo de entrada
   }
 
   return (
@@ -96,7 +90,6 @@ export default function Form({ GetDB }) {
           <option value="">Selecione</option>
           <option value="Entrada">Entrada</option>
           <option value="Saida">Saida</option>
-          <option value="Caixa">Caixa</option>
         </select>
       </div>
 

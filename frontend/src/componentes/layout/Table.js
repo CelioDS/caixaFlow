@@ -126,7 +126,11 @@ export default function Table({ arrayDB, currentPage }) {
       {isReportsPage && (
         <section className={style.overview}>
           <div className={style.plate}>
-            <Header entrada={entrada} saida={saida} caixa={caixa} />
+            <Header
+              entrada={entrada}
+              saida={saida}
+              caixa={entrada - saida}
+            />
           </div>
 
           <div className={style.filter}>
@@ -142,7 +146,7 @@ export default function Table({ arrayDB, currentPage }) {
                     {month.label}
                   </option>
                 ))}
-              </select>{" "}
+              </select>
             </div>
             <button onClick={exportToCSV}>
               <span>
@@ -195,8 +199,6 @@ export default function Table({ arrayDB, currentPage }) {
                   valor,
                 }) => (
                   <tr key={id}>
-                    {console.log()}
-
                     {!isMobile && <td>{dataNew}</td>}
                     <td
                       style={
