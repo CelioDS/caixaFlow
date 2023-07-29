@@ -32,17 +32,26 @@ export const setDB = (req, res) => {
 
 export const updateDB = (req, res) => {
   const query =
-    "UPDATE dados SET `dataNew` = ?, `movimentacao` = ?, `descricao` = ?, `especifique` = ?, `valor` = ?,";
+    "UPDATE dados SET  `movimentacao` = ?, `descricao` = ?, `especifique` = ?, `valor` = ? WHERE `id` = ?";
   const values = [
-    req.body.dataNew,
     req.body.movimentacao,
     req.body.descricao,
-    req.body.especifique,
+    req.body.quantidade,
     req.body.valor,
   ];
   db.query(query, [...values, req.params.id], (err) => {
     if (err) return res.json(err);
 
     return res.status(200).json("Cadastrado  atualizado... ");
+  });
+};
+
+export const deleteDB = (req, res) => {
+  const query = "DELETE FROM dados WHERE `id` = ? ";
+
+  db.query(query, [req.params.id], (err) => {
+    if (err) return res.json(err);
+
+    return res.status(200).json("Cadastro deletado com Sucesso...");
   });
 };
