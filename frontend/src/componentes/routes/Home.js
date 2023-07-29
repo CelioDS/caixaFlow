@@ -11,7 +11,6 @@ import BarChart from "../graficos/BarChart";
 import PieCharts from "../graficos/PieCharts";
 
 export default function Home() {
-  const [caixa, setCaixa] = useState([]);
   const [entrada, setEntrada] = useState([]);
   const [saida, setSaida] = useState([]);
   const [EditCadastro, setEditCadastro] = useState(null);
@@ -50,15 +49,6 @@ export default function Home() {
   }, [setArrayDB]);
 
   useEffect(() => {
-    setCaixa(
-      arrayDB.reduce((acumulador, data) => {
-        if (data.movimentacao === "Caixa") {
-          return acumulador + data.valor;
-        } else {
-          return acumulador;
-        }
-      }, 0)
-    );
     setEntrada(
       arrayDB.reduce((acumulador, data) => {
         if (data.movimentacao === "Entrada") {
@@ -85,11 +75,7 @@ export default function Home() {
       <div className={style.graficos}>
         <BarChart entrada={entrada} saida={saida} caixa={entrada - saida} />
 
-        <PieCharts
-          entrada={entrada}
-          saida={saida}
-          caixa={parseInt(caixa - saida)}
-        />
+        <PieCharts entrada={entrada} saida={saida} caixa={entrada - saida} />
       </div>
 
       <Header entrada={entrada} saida={saida} caixa={entrada - saida} />
