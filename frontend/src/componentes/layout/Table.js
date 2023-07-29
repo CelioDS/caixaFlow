@@ -1,11 +1,20 @@
 import style from "./Table.module.css";
 import Mobile from "../function/CheckMobile";
 import { useCallback, useState, useEffect } from "react";
-import { FaDownload } from "react-icons/fa"; // Importe o ícone de download da biblioteca
+import { FaDownload, FaTrash, FaPen } from "react-icons/fa";
+
+import axios from "axios";
+import { toast } from "react-toastify";
+
 import Loading from "./Loading";
 import Header from "./Header";
 
-export default function Table({ arrayDB, currentPage }) {
+export default function Table({
+  currentPage,
+  arrayDB,
+  setEditCadastro,
+  setArrayDB,
+}) {
   const checkMobile = useCallback(Mobile, []);
   const isMobile = checkMobile();
 
@@ -14,6 +23,7 @@ export default function Table({ arrayDB, currentPage }) {
   const [caixa, setCaixa] = useState(0);
   const [entrada, setEntrada] = useState(0);
   const [saida, setSaida] = useState(0);
+  const isReportsPage = currentPage === "relatorios";
 
   useEffect(() => {
     // Filtrar os dados do mês selecionado
@@ -60,7 +70,6 @@ export default function Table({ arrayDB, currentPage }) {
     { value: "11", label: "Novembro" },
     { value: "12", label: "Dezembro" },
   ];
-  const isReportsPage = currentPage === "relatorios";
 
   function exportToCSV() {
     //aciona o nome ao arquivo
@@ -121,18 +130,33 @@ export default function Table({ arrayDB, currentPage }) {
     link.click();
   }
 
+  async function handleExcluir(id) {
+    await axios
+      .delete(process.env.REACT_APP_DB_API + id)
+      .then(({ data }) => {
+        const newDB = arrayDB.filter((cadastro) => cadastro.id !== id);
+        setArrayDB(newDB);
+        toast.success(data);
+      })
+      .catch(({ data }) => toast.error(data));
+    setEditCadastro(null);
+  }
+
+  async function handleEditar(cadastro) {
+    setEditCadastro(cadastro);
+  }
+
   return (
     <section>
       {isReportsPage && (
         <section className={style.overview}>
           <div className={style.plate}>
-            <Header
-              entrada={entrada}
-              saida={saida}
-              caixa={entrada - saida}
-            />
+            <Header entrada={entrada} saida={saida} caixa={entrada - saida} />
           </div>
-
+        </section>
+      )}
+      {!isReportsPage && (
+        <section className={style.overview}>
           <div className={style.filter}>
             <div>
               <label htmlFor="monthFilter">Filtrar por mês: </label>
@@ -165,10 +189,16 @@ export default function Table({ arrayDB, currentPage }) {
             <th>descrição</th>
             <th>Especifique</th>
             <th>valor</th>
+            {!isReportsPage && (
+              <>
+                <th>Editar</th>
+                <th>Excluir</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
-          {saida === 0 && caixa === 0 && entrada === 0 && (
+          {isReportsPage && saida === 0 && caixa === 0 && entrada === 0 && (
             <tr>
               <td key={1} colSpan={7}>
                 <h4>Sem cadastros!!!</h4>
@@ -224,6 +254,29 @@ export default function Table({ arrayDB, currentPage }) {
                     >
                       {valor}
                     </td>
+
+                    {!isReportsPage && (
+                      <>
+                        <td>
+                          <button
+                            onClick={() => {
+                              handleEditar(arrayDB);
+                            }}
+                          >
+                            <FaPen />
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            onClick={() => {
+                              handleExcluir(id);
+                            }}
+                          >
+                            <FaTrash />
+                          </button>
+                        </td>
+                      </>
+                    )}
                   </tr>
                 )
               )

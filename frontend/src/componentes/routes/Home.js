@@ -14,7 +14,7 @@ export default function Home() {
   const [caixa, setCaixa] = useState([]);
   const [entrada, setEntrada] = useState([]);
   const [saida, setSaida] = useState([]);
-
+  const [EditCadastro, setEditCadastro] = useState(null);
   const [arrayDB, setArrayDB] = useState([]);
 
   function filterByCurrentMonth(dataArray) {
@@ -85,12 +85,25 @@ export default function Home() {
       <div className={style.graficos}>
         <BarChart entrada={entrada} saida={saida} caixa={entrada - saida} />
 
-        <PieCharts entrada={entrada} saida={saida} caixa={saida + caixa} />
+        <PieCharts
+          entrada={entrada}
+          saida={saida}
+          caixa={parseInt(caixa - saida)}
+        />
       </div>
 
       <Header entrada={entrada} saida={saida} caixa={entrada - saida} />
-      <Form GetDB={GetDB} />
-      <Table arrayDB={arrayDB} />
+      <Form
+        GetDB={GetDB}
+        EditCadastro={EditCadastro}
+        setEditCadastro={setEditCadastro}
+        setArrayDB={setArrayDB}
+      />
+      <Table
+        setEditCadastro={setEditCadastro}
+        arrayDB={arrayDB}
+        setArrayDB={setArrayDB}
+      />
     </main>
   );
 }

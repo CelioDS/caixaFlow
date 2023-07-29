@@ -36,7 +36,7 @@ export const updateDB = (req, res) => {
   const values = [
     req.body.movimentacao,
     req.body.descricao,
-    req.body.quantidade,
+    req.body.especifique,
     req.body.valor,
   ];
   db.query(query, [...values, req.params.id], (err) => {
