@@ -4,7 +4,7 @@ import "./App.css";
 import App from "./App";
 
 // paginas
-import Error from "./componentes/layout/Error";
+import Error from "./componentes/item-layout/Error";
 import Configuracao from "./componentes/routes/Configuracao";
 import Home from "./componentes/routes/Home";
 import Relatorios from "./componentes/routes/Relatorios";

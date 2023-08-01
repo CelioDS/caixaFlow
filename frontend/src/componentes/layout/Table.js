@@ -6,7 +6,7 @@ import { FaDownload, FaTrash, FaPen } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import Loading from "./Loading";
+import Loading from "../item-layout/Loading";
 import Header from "./Header";
 
 export default function Table({

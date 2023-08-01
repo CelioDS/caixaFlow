@@ -86,7 +86,7 @@ section table tbody tr:hover {
 }
 
 section table button {
-  background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
   border: 1px solid #fff;
   padding: 5px;
   cursor: pointer;

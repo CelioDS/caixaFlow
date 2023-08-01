@@ -4,7 +4,9 @@ import axios from "axios";
 
 import { toast } from "react-toastify";
 
-import Input from "../layout/Input";
+import Input from "../item-layout/Input";
+
+import { format } from "date-fns";
 
 import style from "./Form.module.css";
 
@@ -12,10 +14,13 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const ref = useRef();
-  const [currentDate, setCurrentDate] = useState(
-    new Date().toISOString().split("T")[0]
-  ); // Estado para controlar o valor do campo de data
+  const [currentDate, setCurrentDate] = useState("yyyy-MM-dd"); // Estado para controlar o valor do campo de data
 
+  useEffect(() => {
+    const today = new Date();
+
+    setCurrentDate(format(today, "yyyy-MM-dd"));
+  }, [setCurrentDate]);
   useEffect(() => {
     if (EditCadastro) {
       const dadosForm = ref.current;
@@ -55,11 +60,9 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
-      const dataParts = dadosForm.dataNew.value.split("-");
-      const dataInvertida = dataParts.reverse().join("-");
       await axios
         .post(process.env.REACT_APP_DB_API, {
-          dataNew: ` ${dataInvertida}`,
+          dataNew: currentDate,
           movimentacao: dadosForm.movimentacao.value,
           descricao: dadosForm.descricao.value,
           especifique: dadosForm.especifique.value,

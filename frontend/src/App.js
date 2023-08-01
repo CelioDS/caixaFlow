@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 //2 Reproveitamento de estrutura
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { BsClipboardCheck } from "react-icons/bs";
-import isMobile from "./componentes/function/CheckMobile";
+import CheckMobile from "./componentes/function/CheckMobile";
 
 // 4- nagegando entre paginas
 function App() {
@@ -15,6 +15,8 @@ function App() {
   const [pass, setPass] = useState(localStorage.getItem("pass") || "");
   const [permission, setPermission] = useState(false);
   const [erro, seterro] = useState(false);
+  const checkMobile = useCallback(CheckMobile, []);
+  const isMobile = checkMobile();
 
   const textCopy = isMobile ? "Copiou" : "Copiar";
   const [copy, setCopy] = useState(textCopy);
@@ -76,9 +78,9 @@ function App() {
         <div className={"credencial"}>
           <div>
             <span>
-              usuario: <strong>celio</strong>
+              usuario: <strong>Celio</strong>
             </span>
-            <button className={"btnCopy"} onClick={() => handleCopy("celio")}>
+            <button className={"btnCopy"} onClick={() => handleCopy("Celio")}>
               <p className={"copy"}>{copy}</p>
               <BsClipboardCheck />
             </button>

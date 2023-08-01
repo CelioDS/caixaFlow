@@ -4,7 +4,7 @@ import { BsGear, BsList, BsXLg } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 
-import LinkButton from "../layout/LinkButton";
+import LinkButton from "../item-layout/LinkButton";
 import CheckMobile from "../function/CheckMobile";
 
 export default function NavBar() {

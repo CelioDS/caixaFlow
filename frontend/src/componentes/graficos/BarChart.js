@@ -4,6 +4,11 @@ export default function BarChart({ entrada, saida, caixa }) {
   const formattedEntrada = parseFloat(entrada).toFixed(2);
   const formattedSaida = parseFloat(saida).toFixed(2);
   const formattedCaixa = parseFloat(caixa).toFixed(2);
+
+  
+  console.log(formattedSaida);
+  console.log(formattedSaida);
+  console.log(formattedCaixa);
   const state = {
     series: [
       {
