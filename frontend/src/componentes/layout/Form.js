@@ -27,7 +27,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
 
       dadosForm.movimentacao.value = EditCadastro.movimentacao;
       dadosForm.descricao.value = EditCadastro.descricao;
-      dadosForm.especifique.value = EditCadastro.especifique;
+
       dadosForm.valor.value = EditCadastro.valor;
     }
   }, [EditCadastro]);
@@ -54,7 +54,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         .put(process.env.REACT_APP_DB_API + EditCadastro.id, {
           movimentacao: dadosForm.movimentacao.value,
           descricao: dadosForm.descricao.value,
-          especifique: dadosForm.especifique.value,
+
           valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
@@ -65,7 +65,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
           dataNew: currentDate,
           movimentacao: dadosForm.movimentacao.value,
           descricao: dadosForm.descricao.value,
-          especifique: dadosForm.especifique.value,
+
           valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
@@ -73,7 +73,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     }
     dadosForm.dataNew.value = "";
     dadosForm.movimentacao.value = "";
-    dadosForm.especifique.value = "";
+
     dadosForm.descricao.value = "";
     dadosForm.valor.value = "";
 
@@ -87,12 +87,6 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (isNaN(floatValue) || floatValue < 0) {
       e.target.value = ""; // Limpa o valor do input se não for um número de ponto flutuante válido ou se for negativo
     }
-  }
-  function handleValida(e) {
-    const dadosForm = ref.current;
-
-    dadosForm.especifique.value = "-";
-    dadosForm.especifique.disabled = true; // Desabilitar o campo de entrada
   }
 
   return (
@@ -110,9 +104,9 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         />
       </div>
 
-      <div className={style.selectInput} onChange={handleValida}>
+      <div className={style.selectInput}>
         <label>MOVIMENTAÇÂO</label>
-        <select id="movimentacao" onChange={handleValida}>
+        <select id="movimentacao">
           <option value="">Selecione</option>
           <option value="Entrada">Entrada</option>
           <option value="Saida">Saida</option>
@@ -125,15 +119,6 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         type="text"
         id="descricao"
         name="descricao"
-        className={style.input}
-      />
-
-      <Input
-        text="ESPECIFIQUE"
-        placeholder="Digite o motivo "
-        type="text"
-        id="especifique"
-        name="especifique"
         className={style.input}
       />
 
