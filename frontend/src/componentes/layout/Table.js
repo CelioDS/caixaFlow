@@ -187,7 +187,7 @@ export default function Table({
             {!isMobile && <th>data </th>}
             <th>movimentação</th>
             <th>descrição</th>
-            <th>Especifique</th>
+
             <th>valor</th>
             {!isReportsPage && (
               <>
@@ -224,7 +224,7 @@ export default function Table({
               })
               .map((cadastro, key) => (
                 <tr key={key}>
-                  {!isMobile && <td>{cadastro.dataNew}</td>}
+                  {!isMobile && <td>{cadastro.dataNew.split("-").reverse().join("/")}</td>}
                   <td
                     style={
                       cadastro.movimentacao === "Entrada"
@@ -237,7 +237,7 @@ export default function Table({
                     {cadastro.movimentacao}
                   </td>
                   <td>{cadastro.descricao}</td>
-                  <td>{cadastro.especifique}</td>
+
                   <td
                     style={
                       cadastro.movimentacao === "Entrada"

@@ -11,8 +11,10 @@ import CheckMobile from "./componentes/function/CheckMobile";
 
 // 4- nagegando entre paginas
 function App() {
-  const [user, setUser] = useState(localStorage.getItem("user") || "");
-  const [pass, setPass] = useState(localStorage.getItem("pass") || "");
+  const [user, setUser] = useState(localStorage.getItem("user") || "Celio");
+  const [pass, setPass] = useState(
+    localStorage.getItem("pass") || "*celio123*"
+  );
   const [permission, setPermission] = useState(false);
   const [erro, seterro] = useState(false);
   const checkMobile = useCallback(CheckMobile, []);
@@ -42,7 +44,7 @@ function App() {
     ) {
       setTimeout(() => {
         setPermission(true);
-      }, 1000);
+      }, 0);
 
       localStorage.setItem("user", process.env.REACT_APP_USER);
       localStorage.setItem("pass", process.env.REACT_APP_PASS);

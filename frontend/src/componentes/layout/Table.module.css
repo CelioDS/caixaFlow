@@ -74,15 +74,6 @@ section table tbody tr:hover {
   filter: drop-shadow(3px 3px 3px #000000);
   box-shadow: 0 0 5px #c4c4c4;
   transition: all 0.2s;
-  font-weight: bolder;
-}
-section table tbody tr:hover {
-  transform: scale(1.03);
-  z-index: 100;
-  filter: drop-shadow(3px 3px 3px #000000);
-  box-shadow: 0 0 5px #c4c4c4;
-  transition: all 0.2s;
-  font-weight: bolder;
 }
 
 section table button {

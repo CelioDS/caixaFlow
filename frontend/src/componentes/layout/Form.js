@@ -1,34 +1,37 @@
 import { useState, useRef, useEffect } from "react";
-
 import axios from "axios";
-
 import { toast } from "react-toastify";
-
 import Input from "../item-layout/Input";
-
 import { format } from "date-fns";
-
 import style from "./Form.module.css";
 
 export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
-  const [isSubmit, setIsSubmit] = useState(false);
-
   const ref = useRef();
-  const [currentDate, setCurrentDate] = useState("yyyy-MM-dd"); // Estado para controlar o valor do campo de data
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [currentDate, setCurrentDate] = useState("yyyy-MM-dd");
+
+  const listInput = [
+    "dataNew",
+    "movimentacao",
+    "produto",
+    "quantidade",
+    "valor",
+  ];
 
   useEffect(() => {
     const today = new Date();
 
     setCurrentDate(format(today, "yyyy-MM-dd"));
   }, [setCurrentDate]);
+
   useEffect(() => {
     if (EditCadastro) {
       const dadosForm = ref.current;
 
-      dadosForm.movimentacao.value = EditCadastro.movimentacao;
-      dadosForm.descricao.value = EditCadastro.descricao;
-
-      dadosForm.valor.value = EditCadastro.valor;
+      dadosForm.listInput[1].value = EditCadastro.listInput[1];
+      dadosForm.listInput[2].value = EditCadastro.listInput[2];
+      dadosForm.listInput[3].value = EditCadastro.listInput[3];
+      dadosForm.listInput[4].value = EditCadastro.listInput[4];
     }
   }, [EditCadastro]);
 
@@ -41,10 +44,11 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     const dadosForm = ref.current;
 
     if (
-      !dadosForm.dataNew.value ||
-      !dadosForm.movimentacao.value ||
-      !dadosForm.descricao.value ||
-      !dadosForm.valor.value
+      !dadosForm.listInput[0].value ||
+      !dadosForm.listInput[1].value ||
+      !dadosForm.listInput[2].value ||
+      !dadosForm.listInput[3].value ||
+      !dadosForm.listInput[4].value
     ) {
       setIsSubmit(false); // Reabilita o botão após o envio do formulário
       return toast.warn("Preencha todos os campos!!!");
@@ -52,10 +56,10 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (EditCadastro) {
       await axios
         .put(process.env.REACT_APP_DB_API + EditCadastro.id, {
-          movimentacao: dadosForm.movimentacao.value,
-          descricao: dadosForm.descricao.value,
-
-          valor: dadosForm.valor.value,
+          movimentacao: dadosForm.listInput[1].value,
+          produto: dadosForm.listInput[2].value,
+          quantidade: dadosForm.listInput[3].value,
+          valor: dadosForm.listInput[4].value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -63,19 +67,19 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       await axios
         .post(process.env.REACT_APP_DB_API, {
           dataNew: currentDate,
-          movimentacao: dadosForm.movimentacao.value,
-          descricao: dadosForm.descricao.value,
-
-          valor: dadosForm.valor.value,
+          movimentacao: dadosForm.listInput[1].value,
+          produto: dadosForm.listInput[2].value,
+          quantidade: dadosForm.listInput[3].value,
+          valor: dadosForm.listInput[4].value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
-    dadosForm.dataNew.value = "";
-    dadosForm.movimentacao.value = "";
-
-    dadosForm.descricao.value = "";
-    dadosForm.valor.value = "";
+    dadosForm.listInput[0].value = "";
+    dadosForm.listInput[1].value = "";
+    dadosForm.listInput[2].value = "";
+    dadosForm.listInput[3].value = "";
+    dadosForm.listInput[4].value = "";
 
     GetDB();
     setEditCadastro(null);
@@ -105,8 +109,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       </div>
 
       <div className={style.selectInput}>
-        <label>MOVIMENTAÇÂO</label>
-        <select id="movimentacao">
+        <label>{listInput[1].toUpperCase()}</label>
+        <select id={listInput[1]}>
           <option value="">Selecione</option>
           <option value="Entrada">Entrada</option>
           <option value="Saida">Saida</option>
@@ -114,24 +118,32 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       </div>
 
       <Input
-        text="DESCRIÇÃO"
-        placeholder="Digite a Descrição aqui"
+        text={listInput[2].toUpperCase()}
+        placeholder={`Digite a ${listInput[1]} aqui`}
         type="text"
-        id="descricao"
-        name="descricao"
+        id={listInput[2]}
+        name={listInput[2]}
         className={style.input}
       />
-
       <Input
-        text="VALOR(R$)"
-        placeholder="Digite o Valor aqui"
+        text={listInput[3].toUpperCase()}
+        placeholder={`Digite a ${listInput[3]} aqui`}
         type="text"
-        id="valor"
-        name="valor"
+        id={listInput[3]}
+        name={listInput[3]}
+        className={style.input}
+      />
+      <Input
+        text={listInput[4].toUpperCase()}
+        placeholder={`Digite a ${listInput[4]} aqui`}
+        type="text"
+        id={listInput[4]}
         min="0"
+        name={listInput[4]}
         onChange={handleNumber}
         className={style.input}
       />
+
       <div>
         <button disabled={isSubmit} type="submit">
           {isSubmit ? "SALVANDO..." : "SALVAR"}
