@@ -10,14 +10,6 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [currentDate, setCurrentDate] = useState("yyyy-MM-dd");
 
-  const listInput = [
-    "dataNew",
-    "movimentacao",
-    "produto",
-    "quantidade",
-    "valor",
-  ];
-
   useEffect(() => {
     const today = new Date();
 
@@ -28,10 +20,10 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (EditCadastro) {
       const dadosForm = ref.current;
 
-      dadosForm.listInput[1].value = EditCadastro.listInput[1];
-      dadosForm.listInput[2].value = EditCadastro.listInput[2];
-      dadosForm.listInput[3].value = EditCadastro.listInput[3];
-      dadosForm.listInput[4].value = EditCadastro.listInput[4];
+      dadosForm.movimentacao.value = EditCadastro.movimentacao;
+      dadosForm.produto.value = EditCadastro.produto;
+      dadosForm.quantidade.value = EditCadastro.quantidade;
+      dadosForm.valor.value = EditCadastro.valor;
     }
   }, [EditCadastro]);
 
@@ -44,11 +36,11 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     const dadosForm = ref.current;
 
     if (
-      !dadosForm.listInput[0].value ||
-      !dadosForm.listInput[1].value ||
-      !dadosForm.listInput[2].value ||
-      !dadosForm.listInput[3].value ||
-      !dadosForm.listInput[4].value
+      !dadosForm.dataNew.value ||
+      !dadosForm.movimentacao.value ||
+      !dadosForm.produto.value ||
+      !dadosForm.quantidade.value ||
+      !dadosForm.valor.value
     ) {
       setIsSubmit(false); // Reabilita o botão após o envio do formulário
       return toast.warn("Preencha todos os campos!!!");
@@ -56,10 +48,10 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (EditCadastro) {
       await axios
         .put(process.env.REACT_APP_DB_API + EditCadastro.id, {
-          movimentacao: dadosForm.listInput[1].value,
-          produto: dadosForm.listInput[2].value,
-          quantidade: dadosForm.listInput[3].value,
-          valor: dadosForm.listInput[4].value,
+          movimentacao: dadosForm.movimentacao.value,
+          produto: dadosForm.produto.value,
+          quantidade: dadosForm.quantidade.value,
+          valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -67,19 +59,19 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       await axios
         .post(process.env.REACT_APP_DB_API, {
           dataNew: currentDate,
-          movimentacao: dadosForm.listInput[1].value,
-          produto: dadosForm.listInput[2].value,
-          quantidade: dadosForm.listInput[3].value,
-          valor: dadosForm.listInput[4].value,
+          movimentacao: dadosForm.movimentacao.value,
+          produto: dadosForm.produto.value,
+          quantidade: dadosForm.quantidade.value,
+          valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
-    dadosForm.listInput[0].value = "";
-    dadosForm.listInput[1].value = "";
-    dadosForm.listInput[2].value = "";
-    dadosForm.listInput[3].value = "";
-    dadosForm.listInput[4].value = "";
+    dadosForm.dataNew.value = "";
+    dadosForm.movimentacao.value = "";
+    dadosForm.produto.value = "";
+    dadosForm.quantidade.value = "";
+    dadosForm.valor.value = "";
 
     GetDB();
     setEditCadastro(null);
@@ -109,8 +101,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       </div>
 
       <div className={style.selectInput}>
-        <label>{listInput[1].toUpperCase()}</label>
-        <select id={listInput[1]}>
+        <label>MOVIMENTAÇÃO</label>
+        <select id="movimentacao">
           <option value="">Selecione</option>
           <option value="Entrada">Entrada</option>
           <option value="Saida">Saida</option>
@@ -118,28 +110,28 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       </div>
 
       <Input
-        text={listInput[2].toUpperCase()}
-        placeholder={`Digite a ${listInput[1]} aqui`}
+        text="PRODUTO"
+        placeholder="Digite a movimentacao aqui"
         type="text"
-        id={listInput[2]}
-        name={listInput[2]}
+        id="produto"
+        name="produto"
         className={style.input}
       />
       <Input
-        text={listInput[3].toUpperCase()}
-        placeholder={`Digite a ${listInput[3]} aqui`}
+        text="QUANTIDADE"
+        placeholder="Digite a quantidade aqui"
         type="text"
-        id={listInput[3]}
-        name={listInput[3]}
+        id="quantidade"
+        name="quantidade"
         className={style.input}
       />
       <Input
-        text={listInput[4].toUpperCase()}
-        placeholder={`Digite a ${listInput[4]} aqui`}
+        text="VALOR"
+        placeholder="Digite a valor aqui`}"
         type="text"
-        id={listInput[4]}
+        id='valor'
         min="0"
-        name={listInput[4]}
+        name='valor'
         onChange={handleNumber}
         className={style.input}
       />
