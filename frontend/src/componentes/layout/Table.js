@@ -189,6 +189,7 @@ export default function Table({
             <th>produto</th>
             <th>quantidade</th>
             <th>valor</th>
+            <th>total</th>
             {!isReportsPage && (
               <>
                 <th>Editar</th>
@@ -251,6 +252,7 @@ export default function Table({
                   >
                     {cadastro.valor}
                   </td>
+                  <td>{cadastro.total}</td>
 
                   {!isReportsPage && (
                     <>

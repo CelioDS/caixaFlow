@@ -63,6 +63,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
           produto: dadosForm.produto.value,
           quantidade: dadosForm.quantidade.value,
           valor: dadosForm.valor.value,
+          total: dadosForm.quantidade.value + dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -129,9 +130,9 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         text="VALOR"
         placeholder="Digite a valor aqui`}"
         type="text"
-        id='valor'
+        id="valor"
         min="0"
-        name='valor'
+        name="valor"
         onChange={handleNumber}
         className={style.input}
       />

@@ -33,7 +33,7 @@ export const setDB = (req, res) => {
 
 export const updateDB = (req, res) => {
   const query =
-    "UPDATE dados SET  `movimentacao` = ?, `produto` = ?, `quantidade` = ?, `valor` = ? WHERE `id` = ?";
+    "UPDATE dados SET  `movimentacao` = ?, `produto` = ?, `quantidade` = ?, `valor` = ?, `total` = ? WHERE `id` = ?";
   const values = [
     req.body.dataNew,
     req.body.movimentacao,
