@@ -26,8 +26,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       const dadosForm = ref.current;
 
       dadosForm.movimentacao.value = EditCadastro.movimentacao;
-      dadosForm.descricao.value = EditCadastro.descricao;
-      dadosForm.especifique.value = EditCadastro.especifique;
+      dadosForm.produto.value = EditCadastro.produto;
+      dadosForm.quantidade.value = EditCadastro.quantidade;
       dadosForm.valor.value = EditCadastro.valor;
     }
   }, [EditCadastro]);
@@ -43,7 +43,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (
       !dadosForm.dataNew.value ||
       !dadosForm.movimentacao.value ||
-      !dadosForm.descricao.value ||
+      !dadosForm.produto.value ||
       !dadosForm.valor.value
     ) {
       setIsSubmit(false); // Reabilita o botão após o envio do formulário
@@ -53,9 +53,10 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       await axios
         .put(process.env.REACT_APP_DB_API + EditCadastro.id, {
           movimentacao: dadosForm.movimentacao.value,
-          descricao: dadosForm.descricao.value,
-          especifique: dadosForm.especifique.value,
+          produto: dadosForm.produto.value,
+          quantidade: dadosForm.quantidade.value,
           valor: dadosForm.valor.value,
+          total: dadosForm.quantidade.value * dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -64,17 +65,18 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         .post(process.env.REACT_APP_DB_API, {
           dataNew: currentDate,
           movimentacao: dadosForm.movimentacao.value,
-          descricao: dadosForm.descricao.value,
-          especifique: dadosForm.especifique.value,
+          produto: dadosForm.produto.value,
+          quantidade: dadosForm.quantidade.value,
           valor: dadosForm.valor.value,
+          total: dadosForm.quantidade.value * dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
     dadosForm.dataNew.value = "";
     dadosForm.movimentacao.value = "";
-    dadosForm.especifique.value = "";
-    dadosForm.descricao.value = "";
+    dadosForm.produto.value = "";
+    dadosForm.quantidade.value = "";
     dadosForm.valor.value = "";
 
     GetDB();
@@ -87,12 +89,6 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (isNaN(floatValue) || floatValue < 0) {
       e.target.value = ""; // Limpa o valor do input se não for um número de ponto flutuante válido ou se for negativo
     }
-  }
-  function handleValida(e) {
-    const dadosForm = ref.current;
-
-    dadosForm.especifique.value = "-";
-    dadosForm.especifique.disabled = true; // Desabilitar o campo de entrada
   }
 
   return (
@@ -110,9 +106,9 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         />
       </div>
 
-      <div className={style.selectInput} onChange={handleValida}>
+      <div className={style.selectInput}>
         <label>MOVIMENTAÇÂO</label>
-        <select id="movimentacao" onChange={handleValida}>
+        <select id="movimentacao">
           <option value="">Selecione</option>
           <option value="Entrada">Entrada</option>
           <option value="Saida">Saida</option>

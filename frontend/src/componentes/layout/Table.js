@@ -186,9 +186,10 @@ export default function Table({
           <tr>
             {!isMobile && <th>data </th>}
             <th>movimentação</th>
-            <th>descrição</th>
-            <th>Especifique</th>
+            <th>produto</th>
+            <th>quantidade</th>
             <th>valor</th>
+            <th>total</th>
             {!isReportsPage && (
               <>
                 <th>Editar</th>
@@ -236,8 +237,8 @@ export default function Table({
                   >
                     {cadastro.movimentacao}
                   </td>
-                  <td>{cadastro.descricao}</td>
-                  <td>{cadastro.especifique}</td>
+                  <td>{cadastro.produto}</td>
+                  <td>{cadastro.quantidade}</td>
                   <td
                     style={
                       cadastro.movimentacao === "Entrada"
@@ -249,6 +250,7 @@ export default function Table({
                   >
                     {cadastro.valor}
                   </td>
+                  <td>{cadastro.total}</td>
 
                   {!isReportsPage && (
                     <>
