@@ -7,9 +7,6 @@ import Form from "../layout/Form";
 import Header from "../layout/Header";
 import Table from "../layout/Table";
 
-import BarChart from "../graficos/BarChart";
-import PieCharts from "../graficos/PieCharts";
-
 export default function Home() {
   const [entrada, setEntrada] = useState([]);
   const [saida, setSaida] = useState([]);
@@ -52,7 +49,7 @@ export default function Home() {
     setEntrada(
       arrayDB.reduce((acumulador, data) => {
         if (data.movimentacao === "Entrada") {
-          return acumulador + data.valor;
+          return acumulador + data.total;
         } else {
           return acumulador;
         }
@@ -61,7 +58,7 @@ export default function Home() {
     setSaida(
       arrayDB.reduce((acumulador, data) => {
         if (data.movimentacao === "Saida") {
-          return acumulador + data.valor;
+          return acumulador + data.total;
         } else {
           return acumulador;
         }
@@ -72,19 +69,15 @@ export default function Home() {
   return (
     <main className={style.main}>
       <h1>Controle financeiro do mês atual</h1>
-      <div className={style.graficos}>
-        <BarChart entrada={entrada} saida={saida} caixa={entrada - saida} />
+      <div className={style.graficos}></div>
 
-        <PieCharts entrada={entrada} saida={saida} caixa={entrada - saida} />
-      </div>
-
-      <Header entrada={entrada} saida={saida} caixa={entrada - saida} />
       <Form
         GetDB={GetDB}
         EditCadastro={EditCadastro}
         setEditCadastro={setEditCadastro}
         setArrayDB={setArrayDB}
       />
+      <Header entrada={entrada} saida={saida} caixa={entrada - saida} />
       <Table
         setEditCadastro={setEditCadastro}
         arrayDB={arrayDB}

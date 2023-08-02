@@ -59,12 +59,15 @@ section table th {
   z-index: 1; /* Aumenta a ordem de sobreposição para garantir que o cabeçalho fique na frente do conteúdo rolável */
 }
 
+section table tr th {
+  text-transform: uppercase;
+}
+
 /* Style the table cells (data) */
 section table td {
   padding: 8px;
   color: var(--GreyLight);
   background-color: #ffffff;
-  cursor: pointer;
 }
 
 /* Apply hover effect on table rows */
@@ -74,6 +77,7 @@ section table tbody tr:hover {
   filter: drop-shadow(3px 3px 3px #000000);
   box-shadow: 0 0 5px #c4c4c4;
   transition: all 0.2s;
+  cursor: default !important;
 }
 
 section table button {

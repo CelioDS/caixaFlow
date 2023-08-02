@@ -135,7 +135,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
 
       <Input
         text="VALOR(R$)"
-        placeholder="Digite o Valor aqui"
+        placeholder="Digite o Valor da unidade"
         type="text"
         id="valor"
         name="valor"

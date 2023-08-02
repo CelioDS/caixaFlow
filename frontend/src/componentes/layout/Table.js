@@ -225,7 +225,9 @@ export default function Table({
               })
               .map((cadastro, key) => (
                 <tr key={key}>
-                  {!isMobile && <td>{cadastro.dataNew}</td>}
+                  {!isMobile && (
+                    <td>{cadastro.dataNew.split("-").reverse().join("/")}</td>
+                  )}
                   <td
                     style={
                       cadastro.movimentacao === "Entrada"
@@ -256,6 +258,7 @@ export default function Table({
                     <>
                       <td>
                         <button
+                          title="Editar cadastro"
                           onClick={() => {
                             handleEditar(cadastro);
                           }}
@@ -265,6 +268,7 @@ export default function Table({
                       </td>
                       <td>
                         <button
+                          title="Excluir cadastro"
                           onClick={() => {
                             handleExcluir(cadastro.id);
                           }}
