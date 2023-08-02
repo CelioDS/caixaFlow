@@ -120,20 +120,20 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       </div>
 
       <Input
-        text="DESCRIÇÃO"
-        placeholder="Digite a Descrição aqui"
+        text="produto"
+        placeholder="Digite a produto aqui"
         type="text"
-        id="descricao"
-        name="descricao"
+        id="produto"
+        name="produto"
         className={style.input}
       />
 
       <Input
-        text="ESPECIFIQUE"
+        text="quantidade"
         placeholder="Digite o motivo "
         type="text"
-        id="especifique"
-        name="especifique"
+        id="quantidade"
+        name="quantidade"
         className={style.input}
       />
 
