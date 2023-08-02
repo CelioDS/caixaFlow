@@ -1,33 +1,28 @@
 import { useState, useRef, useEffect } from "react";
-
 import axios from "axios";
-
 import { toast } from "react-toastify";
-
 import Input from "../item-layout/Input";
-
 import { format } from "date-fns";
-
 import style from "./Form.module.css";
 
 export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
-  const [isSubmit, setIsSubmit] = useState(false);
-
   const ref = useRef();
-  const [currentDate, setCurrentDate] = useState("yyyy-MM-dd"); // Estado para controlar o valor do campo de data
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [currentDate, setCurrentDate] = useState("yyyy-MM-dd");
 
   useEffect(() => {
     const today = new Date();
 
     setCurrentDate(format(today, "yyyy-MM-dd"));
   }, [setCurrentDate]);
+
   useEffect(() => {
     if (EditCadastro) {
       const dadosForm = ref.current;
 
       dadosForm.movimentacao.value = EditCadastro.movimentacao;
-      dadosForm.descricao.value = EditCadastro.descricao;
-      dadosForm.especifique.value = EditCadastro.especifique;
+      dadosForm.produto.value = EditCadastro.produto;
+      dadosForm.quantidade.value = EditCadastro.quantidade;
       dadosForm.valor.value = EditCadastro.valor;
     }
   }, [EditCadastro]);
@@ -43,7 +38,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (
       !dadosForm.dataNew.value ||
       !dadosForm.movimentacao.value ||
-      !dadosForm.descricao.value ||
+      !dadosForm.produto.value ||
+      !dadosForm.quantidade.value ||
       !dadosForm.valor.value
     ) {
       setIsSubmit(false); // Reabilita o botão após o envio do formulário
@@ -53,8 +49,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       await axios
         .put(process.env.REACT_APP_DB_API + EditCadastro.id, {
           movimentacao: dadosForm.movimentacao.value,
-          descricao: dadosForm.descricao.value,
-          especifique: dadosForm.especifique.value,
+          produto: dadosForm.produto.value,
+          quantidade: dadosForm.quantidade.value,
           valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
@@ -64,8 +60,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         .post(process.env.REACT_APP_DB_API, {
           dataNew: currentDate,
           movimentacao: dadosForm.movimentacao.value,
-          descricao: dadosForm.descricao.value,
-          especifique: dadosForm.especifique.value,
+          produto: dadosForm.produto.value,
+          quantidade: dadosForm.quantidade.value,
           valor: dadosForm.valor.value,
         })
         .then(({ data }) => toast.success(data))
@@ -73,8 +69,8 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     }
     dadosForm.dataNew.value = "";
     dadosForm.movimentacao.value = "";
-    dadosForm.especifique.value = "";
-    dadosForm.descricao.value = "";
+    dadosForm.produto.value = "";
+    dadosForm.quantidade.value = "";
     dadosForm.valor.value = "";
 
     GetDB();
@@ -87,12 +83,6 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
     if (isNaN(floatValue) || floatValue < 0) {
       e.target.value = ""; // Limpa o valor do input se não for um número de ponto flutuante válido ou se for negativo
     }
-  }
-  function handleValida(e) {
-    const dadosForm = ref.current;
-
-    dadosForm.especifique.value = "-";
-    dadosForm.especifique.disabled = true; // Desabilitar o campo de entrada
   }
 
   return (
@@ -110,9 +100,9 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
         />
       </div>
 
-      <div className={style.selectInput} onChange={handleValida}>
-        <label>MOVIMENTAÇÂO</label>
-        <select id="movimentacao" onChange={handleValida}>
+      <div className={style.selectInput}>
+        <label>MOVIMENTAÇÃO</label>
+        <select id="movimentacao">
           <option value="">Selecione</option>
           <option value="Entrada">Entrada</option>
           <option value="Saida">Saida</option>
@@ -120,33 +110,34 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       </div>
 
       <Input
-        text="DESCRIÇÃO"
-        placeholder="Digite a Descrição aqui"
+        text="PRODUTO"
+        placeholder="Digite a movimentacao aqui"
         type="text"
-        id="descricao"
-        name="descricao"
+        id="produto"
+        name="produto"
         className={style.input}
       />
-
       <Input
-        text="ESPECIFIQUE"
-        placeholder="Digite o motivo "
+        text="QUANTIDADE"
+        placeholder="Digite a quantidade aqui"
         type="text"
-        id="especifique"
-        name="especifique"
-        className={style.input}
-      />
-
-      <Input
-        text="VALOR(R$)"
-        placeholder="Digite o Valor aqui"
-        type="text"
-        id="valor"
-        name="valor"
+        id="quantidade"
         min="0"
+        name="quantidade"
         onChange={handleNumber}
         className={style.input}
       />
+      <Input
+        text="VALOR"
+        placeholder="Digite a valor aqui`}"
+        type="text"
+        id="valor"
+        min="0"
+        name="valor"
+        onChange={handleNumber}
+        className={style.input}
+      />
+
       <div>
         <button disabled={isSubmit} type="submit">
           {isSubmit ? "SALVANDO..." : "SALVAR"}

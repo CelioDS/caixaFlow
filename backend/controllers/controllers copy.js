@@ -13,13 +13,13 @@ export const getDB = (_, res) => {
 
 export const setDB = (req, res) => {
   const query =
-    "INSERT INTO dados(`dataNew`,`movimentacao`,`descricao`,`especifique`,`valor`) VALUES(?)";
+    "INSERT INTO dados(`dataNew`,`movimentacao`,`produto`,`quantidade`,`valor`) VALUES(?)";
 
   const values = [
     req.body.dataNew,
     req.body.movimentacao,
-    req.body.descricao,
-    req.body.especifique,
+    req.body.produto,
+    req.body.quantidade,
     req.body.valor,
   ];
 
@@ -32,12 +32,13 @@ export const setDB = (req, res) => {
 
 export const updateDB = (req, res) => {
   const query =
-    "UPDATE dados SET  `movimentacao` = ?, `descricao` = ?, `especifique` = ?, `valor` = ? WHERE `id` = ?";
+    "UPDATE dados SET  `movimentacao` = ?, `produto` = ?, `quantidade` = ?, `valor` = ? WHERE `id` = ?";
   const values = [
+    req.body.dataNew,
     req.body.movimentacao,
-    req.body.descricao,
-    req.body.especifique,
-    req.body.valor,
+    req.body.produto,
+    req.body.quantidade,
+    req.body.valor
   ];
   db.query(query, [...values, req.params.id], (err) => {
     if (err) return res.json(err);
