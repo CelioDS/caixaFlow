@@ -36,17 +36,17 @@ export default function Table({
 
     // Calcular os valores de caixa, entrada, saída, papelao, ferro e plastico com base nos dados filtrados
     const caixaValue = filteredData.reduce((total, data) => {
-      return data.movimentacao === "Caixa" ? total + data.valor : total;
+      return data.movimentacao === "Caixa" ? total + data.total : total;
     }, 0);
     setCaixa(caixaValue);
 
     const entradaValue = filteredData.reduce((total, data) => {
-      return data.movimentacao === "Entrada" ? total + data.valor : total;
+      return data.movimentacao === "Entrada" ? total + data.total : total;
     }, 0);
     setEntrada(entradaValue);
 
     const saidaValue = filteredData.reduce((total, data) => {
-      return data.movimentacao === "Saida" ? total + data.valor : total;
+      return data.movimentacao === "Saida" ? total + data.total : total;
     }, 0);
     setSaida(saidaValue);
   }, [arrayDB, searchMonth]);
@@ -78,11 +78,12 @@ export default function Table({
     const fileName = `${selectedMonth} relatorio.csv`;
     // Cabeçalho do CSV
     const header = [
-      "Dia",
-      "Movimentacao",
-      "Descricao",
-      "especifique(KG)",
-      "Valor",
+      "DATA",
+      "MOVIMENTACAO",
+      "PRODUTO",
+      "QUANTIDADE",
+      "VALOR",
+      "TOTAL",
     ];
 
     // Dados do arrayDB filtrados pelo mês selecionado
@@ -97,13 +98,14 @@ export default function Table({
     const csvRows = [header.join(";")];
 
     filteredData.forEach(
-      ({ dataNew, descricao, especifique, movimentacao, valor }) => {
+      ({ dataNew, movimentacao, produto, quantidade, valor, total }) => {
         const formattedRow = [
           dataNew,
           movimentacao,
-          descricao,
-          especifique,
+          produto,
+          quantidade,
           valor,
+          valor * quantidade,
         ];
 
         // Sanitize the fields to handle semicolons and other special characters
@@ -207,9 +209,9 @@ export default function Table({
               </td>
             </tr>
           )}
-          {arrayDB.length === 0 ? (
+          {!isReportsPage && arrayDB.length === 0 ? (
             <tr>
-              <td colSpan={7}>
+              <td colSpan={8}>
                 <h4>Sem cadastros!!!</h4>
                 <Loading></Loading>
               </td>

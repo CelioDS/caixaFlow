@@ -90,6 +90,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       e.target.value = ""; // Limpa o valor do input se não for um número de ponto flutuante válido ou se for negativo
     }
   }
+  
 
   return (
     <form ref={ref} onSubmit={handleSubmit} className={style.form}>
@@ -117,7 +118,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
 
       <Input
         text="produto"
-        placeholder="Digite a produto aqui"
+        placeholder="Nome do produto"
         type="text"
         id="produto"
         name="produto"
@@ -126,7 +127,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
 
       <Input
         text="quantidade"
-        placeholder="Digite o motivo "
+        placeholder="Digite a quantidade"
         type="text"
         id="quantidade"
         name="quantidade"
@@ -134,7 +135,7 @@ export default function Form({ GetDB, EditCadastro, setEditCadastro }) {
       />
 
       <Input
-        text="VALOR(R$)"
+        text="VALOR (R$)"
         placeholder="Digite o Valor da unidade"
         type="text"
         id="valor"

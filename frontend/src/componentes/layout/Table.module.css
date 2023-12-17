@@ -85,4 +85,5 @@ section table button {
   border: 1px solid #fff;
   padding: 5px;
   cursor: pointer;
+  background-color: #ccc;
 }
