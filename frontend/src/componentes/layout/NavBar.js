@@ -36,6 +36,24 @@ export default function NavBar() {
 
     setlinkActive(linkclick);
   }
+
+  // Sempre que isMobile mudar, reajusta o estado
+  useEffect(() => {
+    if (!isMobile) {
+      setMenuOpen(false);
+      setMenuUp(null);
+      setMenuDown(null);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!MenuOpen) {
+      setIconMenu(<BsList color={colorBtn} size={sizeBtn} />);
+    } else {
+      setIconMenu(<BsXLg color={colorBtn} size={sizeBtn} />);
+    }
+  }, [MenuOpen]);
+
   useEffect(() => {
     // Criando o MutationObserver
     const observer = new MutationObserver((mutationsList) => {
@@ -61,23 +79,6 @@ export default function NavBar() {
       observer.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    if (!MenuOpen) {
-      setIconMenu(<BsList color={colorBtn} size={sizeBtn} />);
-    } else {
-      setIconMenu(<BsXLg color={colorBtn} size={sizeBtn} />);
-    }
-  }, [MenuOpen]);
-
-  // Sempre que isMobile mudar, reajusta o estado
-  useEffect(() => {
-    if (!isMobile) {
-      setMenuOpen(false);
-      setMenuUp(null);
-      setMenuDown(null);
-    }
-  }, [isMobile]);
 
   return (
     <div className={styles.div}>
